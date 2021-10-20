@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">feasty</string>
+    <string name="logo_background">background part of the logo</string>
+    <string name="feasty">feasty text from the logo</string>
+    <string name="search_recipes_hint_txt">search recipes</string>
+    <string name="image_of_the_recipe">image of the recipe</string>
+</resources>

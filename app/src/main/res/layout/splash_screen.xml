@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FEEDDD"
+    android:gravity="fill_horizontal|clip_vertical">
+
+    <ImageView
+        android:id="@+id/logo_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:contentDescription="@string/logo_background"
+        android:src="@drawable/logo_background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/feasty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="69sp"
+        android:layout_marginBottom="50sp"
+        android:contentDescription="@string/feasty"
+        android:src="@drawable/feasty"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/logo_background"
+        android:adjustViewBounds="true">
+
+    </ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
