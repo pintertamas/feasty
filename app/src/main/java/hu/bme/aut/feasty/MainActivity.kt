@@ -43,7 +43,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.myResponse.observe(this, { response ->
                     if (response.isSuccessful) {
                         response.body()?.let { Log.d("Response ", it.toString()) }
-                        response.body()?.let { recipeListAdapter.setData(it) }
+                        response.body()?.let {
+                            recipeListAdapter.setData(it)
+                        }
                     } else {
                         Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
                     }
@@ -60,5 +62,4 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = RecipeListAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
-
 }

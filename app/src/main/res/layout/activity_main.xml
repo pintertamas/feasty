@@ -17,6 +17,7 @@
         android:background="@drawable/rounded_edit_text"
         android:elevation="10sp"
         android:ellipsize="middle"
+        android:focusableInTouchMode="true"
         android:gravity="center_horizontal"
         android:hint="@string/search_recipes_hint_txt"
         android:imeOptions="actionDone"
@@ -24,7 +25,8 @@
         android:padding="10dp"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:focusableInTouchMode="true"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
