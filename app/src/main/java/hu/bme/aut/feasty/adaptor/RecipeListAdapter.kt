@@ -10,7 +10,7 @@ import hu.bme.aut.feasty.model.RecipeList
 
 class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
-    private var recipeList: RecipeList = RecipeList(mutableListOf(Recipe(0, "", 10, "")), "",0)
+    private var recipeList: RecipeList = RecipeList(mutableListOf(Recipe(0, "Title", 10, "")), "",0)
 
     inner class RecipeListViewHolder(val binding: RecyclerViewItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,7 +27,7 @@ class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewH
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         System.out.println("onBindViewHolder recipe count: " + recipeList.recipes.size)
         holder.binding.title.text = recipeList.recipes[position].title
-        holder.binding.readyInMinutes.text = recipeList.recipes[position].title
+        holder.binding.readyInMinutes.text = "ready in " + recipeList.recipes[position].readyInMinutes.toString() + " minutes"
         /*val imageURL = recipeList.recipes[position].imageUri
 
         try {
