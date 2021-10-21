@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatDelegate
 import hu.bme.aut.feasty.databinding.SplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -15,6 +16,7 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = SplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val splashAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_animation)
         val splashAnimationEnding = AnimationUtils.loadAnimation(this, R.anim.splash_animation_ending)
@@ -29,6 +31,7 @@ class SplashScreen : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(homeIntent)
+            finish()
         }, 2500)
     }
 }

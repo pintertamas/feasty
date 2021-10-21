@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Feasty" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Feasty" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FFC99C</item>
         <item name="colorPrimaryVariant">#FFFFFD</item>

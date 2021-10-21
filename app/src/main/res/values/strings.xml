@@ -4,4 +4,6 @@
     <string name="feasty">feasty text from the logo</string>
     <string name="search_recipes_hint_txt">search recipes</string>
     <string name="image_of_the_recipe">image of the recipe</string>
+    <string name="recipe_title">Title of the recipe</string>
+    <string name="ready_in">ready in minutes</string>
 </resources>
