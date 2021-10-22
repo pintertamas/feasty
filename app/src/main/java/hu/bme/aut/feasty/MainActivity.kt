@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        binding.searchBar.setOnClickListener {
+            binding.searchBar.isCursorVisible = true
+        }
     }
 
     private fun handleSubmit() {
