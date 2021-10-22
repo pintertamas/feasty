@@ -15,9 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.RecipeListAdapter
 import hu.bme.aut.feasty.databinding.ActivityMainBinding
+import hu.bme.aut.feasty.model.Recipe
 import hu.bme.aut.feasty.repository.Repository
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener {
 
     private lateinit var viewModel: RecipeListViewModel
     private lateinit var binding: ActivityMainBinding
@@ -78,8 +79,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        recipeListAdapter = RecipeListAdapter()
+        recipeListAdapter = RecipeListAdapter(this)
         binding.recyclerView.adapter = recipeListAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onRecipeClicked(recipe: Recipe) {
+        runOnUiThread {
+            //TODO: menjen át a következő oldalra id alapján
+            System.out.println("recipe id: " + recipe.recipeId)
+        }
     }
 }

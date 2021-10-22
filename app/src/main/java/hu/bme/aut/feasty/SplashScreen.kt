@@ -25,13 +25,13 @@ class SplashScreen : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.feastyView.startAnimation(splashAnimationEnding)
-        }, 1500)
+        }, 1000)
 
         val homeIntent = Intent(this@SplashScreen, MainActivity::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(homeIntent)
             finish()
-        }, 2500)
+        }, 1800)
     }
 }
