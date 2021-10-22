@@ -47,7 +47,7 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
         recipeList.addAll(newRecipeList)
 
         System.out.println("recipe count after setData() $itemCount")
-        notifyDataSetChanged()
+        notifyItemRangeInserted(0, recipeList.size)
     }
 
     interface RecipeItemClickListener {

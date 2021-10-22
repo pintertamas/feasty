@@ -2,21 +2,25 @@ package hu.bme.aut.feasty
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import hu.bme.aut.feasty.adapter.IngredientsAdapter
 import hu.bme.aut.feasty.adapter.RecipeListAdapter
 import hu.bme.aut.feasty.databinding.ActivityMainBinding
 import hu.bme.aut.feasty.model.Recipe
 import hu.bme.aut.feasty.repository.Repository
+import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
+import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener {
 
@@ -39,9 +43,9 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.getRecipeList(binding.searchBar.text.toString())
 
-                viewModel.myResponse.observe(this, { response ->
+                viewModel.recipeListResponse.observe(this, { response ->
                     if (response.isSuccessful) {
-                        response.body()?.let { Log.d("Response ", it.toString()) }
+                        //response.body()?.let { Log.d("Response ", it.toString()) }
                         response.body()?.let {
                             runOnUiThread {
                                 recipeListAdapter.setData(it.recipes)
@@ -85,9 +89,20 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     override fun onRecipeClicked(recipe: Recipe) {
-        runOnUiThread {
-            //TODO: menjen át a következő oldalra id alapján
-            System.out.println("recipe id: " + recipe.recipeId)
-        }
+        viewModel.getIngredients(recipe.recipeId)
+
+        viewModel.ingredientsResponse.observe(this, { response ->
+            if (response.isSuccessful) {
+                response.body()?.let { Log.d("Response ", it.toString()) }
+                response.body()?.let {
+                    runOnUiThread {
+                        val ingredientIntent = Intent(this@MainActivity, IngredientsScreen::class.java)
+                        startActivity(ingredientIntent)
+                    }
+                }
+            } else {
+                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

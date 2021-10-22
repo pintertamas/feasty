@@ -1,4 +1,4 @@
-package hu.bme.aut.feasty
+package hu.bme.aut.feasty.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

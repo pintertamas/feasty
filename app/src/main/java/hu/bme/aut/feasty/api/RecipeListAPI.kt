@@ -1,6 +1,7 @@
 package hu.bme.aut.feasty.api
 
-import hu.bme.aut.feasty.model.RecipeIngredients
+import hu.bme.aut.feasty.model.IngredientList
+import hu.bme.aut.feasty.model.Ingredients
 import hu.bme.aut.feasty.model.RecipeList
 import hu.bme.aut.feasty.utils.Constants
 import retrofit2.Response
@@ -17,5 +18,5 @@ interface RecipeListAPI {
 
     @GET("/recipes/{recipeID}/ingredientWidget.json")
     @Headers("x-rapidapi-host: spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", "x-rapidapi-key: 061bd4ab6dmsh6078975ea7b1babp197554jsnc249ce8ca8a7")
-    suspend fun getIngredientsByRecipeID(@Path("recipeID") recipeID: Long): Response<RecipeIngredients>
+    suspend fun getIngredientsByRecipeID(@Path("recipeID") recipeID: Long): Response<IngredientList>
 }
