@@ -53,5 +53,6 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
-
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

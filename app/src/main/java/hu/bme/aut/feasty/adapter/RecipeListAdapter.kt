@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.feasty.R
 import hu.bme.aut.feasty.model.Recipe
 import android.graphics.Bitmap
+import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
 
 
@@ -34,6 +35,9 @@ class RecipeListAdapter : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewH
         holder.binding.title.text = recipeList[position].title
         ("ready in " + recipeList[position].readyInMinutes.toString() + " minutes").also { holder.binding.readyInMinutes.text = it }
         val imageURL = "https://spoonacular.com/recipeImages/" + recipeList[position].imageUri
+        Picasso.get().load(imageURL).into(holder.binding.recipeImageCard)
+
+
 
         //val bmp = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream())
         //holder.binding.imageCard.background =

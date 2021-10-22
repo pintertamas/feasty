@@ -1,10 +1,15 @@
 package hu.bme.aut.feasty
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,11 +51,26 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
 
-                binding.searchBar.setText("")
-                binding.searchBar.clearFocus()
+                this.handleSubmit()
             }
             true
         }
+    }
+
+    private fun handleSubmit() {
+        hideKeyboard()
+        binding.searchBar.setText("")
+        binding.searchBar.clearFocus()
+
+    }
+
+    private fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun setupRecyclerView() {
