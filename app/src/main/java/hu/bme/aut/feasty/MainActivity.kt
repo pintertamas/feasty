@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         hideKeyboard()
         binding.searchBar.setText("")
         binding.searchBar.clearFocus()
-
+        binding.searchBar.isCursorVisible = false
     }
 
     private fun Activity.hideKeyboard() {
