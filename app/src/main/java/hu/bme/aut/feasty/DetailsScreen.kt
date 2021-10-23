@@ -16,24 +16,21 @@ class DetailsScreen : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        System.out.println(this)
+
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
 
         binding.title.text = recipeDetails.title
         ("ready in " + recipeDetails.readyInMinutes.toString() + " minutes").also {
-            binding.readyInMinutes.text = it
+            binding.readyInText.text = it
         }
         val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
         Picasso.get().load(imageURL).into(binding.recipeImageCard)
 
         //binding.textView3.text = recipeDetails.ingredients[0].measures.metric.amount.toString()
-        binding.preparationTime.text = recipeDetails.preparationMinutes.toString()
-        binding.cookingTime.text = recipeDetails.cookingMinutes.toString()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        finish()
+        binding.preparationTimeText.text = recipeDetails.preparationMinutes.toString()
+        binding.cookingTimeText.text = recipeDetails.cookingMinutes.toString()
     }
 
     override fun onStop() {
@@ -48,6 +45,7 @@ class DetailsScreen : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            System.out.println(this)
             finish()
         }
         return super.onKeyDown(keyCode, event)

@@ -85,7 +85,8 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -100,15 +101,13 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
 
         viewModel.ingredientsResponse.observe(this, { response ->
             if (response.isSuccessful) {
-                response.body()?.let { Log.d("Response ", it.toString()) }
                 response.body()?.let {
                     runOnUiThread {
-                        //val ingredientList: List<Ingredient> = response.body()!!.ingredients
-                        val ingredientIntent = Intent(this@MainActivity, DetailsScreen::class.java)
-                        ingredientIntent.putExtra("recipe", recipe)
-                        ingredientIntent.putExtra("details", it)
-                        startActivity(ingredientIntent)
-
+                        val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
+                            putExtra("recipe", recipe)
+                            putExtra("details", it)
+                        }
+                        startActivity(detailsIntent)
                     }
                 }
             } else {
@@ -131,7 +130,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     override fun onRecyclerViewChanged(itemCount: Int) {
-        System.out.println(itemCount)
         if (itemCount >= 0) {
             binding.recyclerView.visibility = View.VISIBLE
             binding.placeholderImage.visibility = View.GONE

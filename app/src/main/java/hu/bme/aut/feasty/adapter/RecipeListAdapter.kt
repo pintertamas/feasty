@@ -32,6 +32,7 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
         Picasso.get().load(imageURL).into(holder.binding.recipeImageCard)
 
         holder.binding.containerCard.setOnClickListener {
+            System.out.println("setting up onclicklistener on " + holder.binding.containerCard)
             recipeItemClickedListener.onRecipeClicked(recipeList[position])
         }
     }
