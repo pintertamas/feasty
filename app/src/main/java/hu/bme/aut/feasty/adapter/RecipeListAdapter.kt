@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.feasty.model.Recipe
 import com.squareup.picasso.Picasso
+import hu.bme.aut.feasty.MainActivity
+import hu.bme.aut.feasty.databinding.ActivityMainBinding
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
 
 
-class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickListener) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
+class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickListener, private val recyclerViewUpdatesListener: RecyclerViewUpdatesListener) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
     private var recipeList = mutableListOf<Recipe>()
 
@@ -35,12 +37,16 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
     }
 
     fun setData(newRecipeList: MutableList<Recipe>) {
-        recipeList.clear()
-        recipeList.addAll(newRecipeList)
+        recipeList = newRecipeList
+        recyclerViewUpdatesListener.onRecyclerViewChanged(this.recipeList.size)
         notifyItemRangeInserted(0, recipeList.size)
     }
 
     interface RecipeItemClickListener {
         fun onRecipeClicked(recipe: Recipe)
+    }
+
+    interface RecyclerViewUpdatesListener {
+        fun onRecyclerViewChanged(itemCount: Int)
     }
 }

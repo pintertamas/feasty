@@ -6,4 +6,7 @@
     <string name="image_of_the_recipe">image of the recipe</string>
     <string name="recipe_title">Title of the recipe</string>
     <string name="ready_in">ready in minutes</string>
+    <string name="preparation_time">preparation_time</string>
+    <string name="cooking_time">cooking_time</string>
+    <string name="background_logo_16_percent_opacity">background image when the recycler view is empty</string>
 </resources>

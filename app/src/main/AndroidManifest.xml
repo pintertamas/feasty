@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Feasty">
         <activity
-            android:name=".IngredientsScreen"
+            android:name=".DetailsScreen"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"

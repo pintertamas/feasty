@@ -12,10 +12,10 @@
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:layout_marginTop="25dp"
-        android:cursorVisible="true"
         android:layout_weight="1"
         android:autofillHints="true"
         android:background="@drawable/rounded_edit_text"
+        android:cursorVisible="true"
         android:elevation="10sp"
         android:ellipsize="middle"
         android:focusableInTouchMode="true"
@@ -35,12 +35,29 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:scaleType="centerCrop"
         android:layout_height="0dp"
         android:layout_marginTop="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        tools:listitem="@layout/recycler_view_item" />
+        tools:listitem="@layout/recycler_view_item"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/placeholderImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/background_logo_16_percent_opacity"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_background_16percent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        android:visibility="visible">
+
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

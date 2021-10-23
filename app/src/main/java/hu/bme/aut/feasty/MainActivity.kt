@@ -5,8 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -14,20 +13,20 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import hu.bme.aut.feasty.adapter.IngredientsAdapter
 import hu.bme.aut.feasty.adapter.RecipeListAdapter
 import hu.bme.aut.feasty.databinding.ActivityMainBinding
-import hu.bme.aut.feasty.model.Ingredient
 import hu.bme.aut.feasty.model.Recipe
 import hu.bme.aut.feasty.repository.Repository
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
 
-class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener {
+class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener,
+    RecipeListAdapter.RecyclerViewUpdatesListener {
 
     private lateinit var viewModel: RecipeListViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var recipeListAdapter: RecipeListAdapter
+    private var recipeListState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +65,14 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
         }
     }
 
+    override fun onResume() {
+        super.onResume();
+
+        if (recipeListState != null) {
+            binding.recyclerView.layoutManager?.onRestoreInstanceState(recipeListState);
+        }
+    }
+
     private fun handleSubmit() {
         hideKeyboard()
         binding.searchBar.setText("")
@@ -83,7 +90,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     private fun setupRecyclerView() {
-        recipeListAdapter = RecipeListAdapter(this)
+        recipeListAdapter = RecipeListAdapter(this, this)
         binding.recyclerView.adapter = recipeListAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -97,15 +104,44 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                 response.body()?.let {
                     runOnUiThread {
                         //val ingredientList: List<Ingredient> = response.body()!!.ingredients
-                        val ingredientIntent = Intent(this@MainActivity, IngredientsScreen::class.java)
+                        val ingredientIntent = Intent(this@MainActivity, DetailsScreen::class.java)
                         ingredientIntent.putExtra("recipe", recipe)
                         ingredientIntent.putExtra("details", it)
                         startActivity(ingredientIntent)
+
                     }
                 }
             } else {
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onSaveInstanceState(state: Bundle) {
+        super.onSaveInstanceState(state)
+
+        recipeListState = binding.recyclerView.layoutManager?.onSaveInstanceState()
+        state.putParcelable(RECIPE_LIST_STATE_KEY, recipeListState)
+    }
+
+    override fun onRestoreInstanceState(state: Bundle) {
+        super.onRestoreInstanceState(state);
+
+        recipeListState = state.getParcelable(RECIPE_LIST_STATE_KEY);
+    }
+
+    override fun onRecyclerViewChanged(itemCount: Int) {
+        System.out.println(itemCount)
+        if (itemCount >= 0) {
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.placeholderImage.visibility = View.GONE
+        } else {
+            binding.recyclerView.visibility = View.GONE
+            binding.placeholderImage.visibility = View.VISIBLE
+        }
+    }
+
+    companion object {
+        const val RECIPE_LIST_STATE_KEY: String = "recipeListState"
     }
 }
