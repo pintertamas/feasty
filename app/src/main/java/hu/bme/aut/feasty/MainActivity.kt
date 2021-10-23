@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientsAdapter
 import hu.bme.aut.feasty.adapter.RecipeListAdapter
 import hu.bme.aut.feasty.databinding.ActivityMainBinding
+import hu.bme.aut.feasty.model.Ingredient
 import hu.bme.aut.feasty.model.Recipe
 import hu.bme.aut.feasty.repository.Repository
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
 
                 viewModel.recipeListResponse.observe(this, { response ->
                     if (response.isSuccessful) {
-                        //response.body()?.let { Log.d("Response ", it.toString()) }
                         response.body()?.let {
                             runOnUiThread {
                                 recipeListAdapter.setData(it.recipes)
@@ -96,7 +96,10 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                 response.body()?.let { Log.d("Response ", it.toString()) }
                 response.body()?.let {
                     runOnUiThread {
+                        //val ingredientList: List<Ingredient> = response.body()!!.ingredients
                         val ingredientIntent = Intent(this@MainActivity, IngredientsScreen::class.java)
+                        ingredientIntent.putExtra("recipe", recipe)
+                        ingredientIntent.putExtra("details", it)
                         startActivity(ingredientIntent)
                     }
                 }

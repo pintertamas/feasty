@@ -1,6 +1,7 @@
 package hu.bme.aut.feasty.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Recipe(
     @SerializedName("id")
@@ -9,4 +10,4 @@ data class Recipe(
     val readyInMinutes: Int,
     @SerializedName("image")
     val imageUri: String
-)
+) : Serializable
