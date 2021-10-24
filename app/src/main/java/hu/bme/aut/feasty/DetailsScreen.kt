@@ -10,6 +10,7 @@ import hu.bme.aut.feasty.databinding.ActivityDetailsBinding
 import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -31,30 +32,40 @@ class DetailsScreen : AppCompatActivity() {
         val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
         Picasso.get().load(imageURL).into(binding.recipeImageCard)
 
-        //binding.textView3.text = recipeDetails.ingredients[0].measures.metric.amount.toString()
-        (recipeDetails.preparationMinutes.toString() + " mins").also {
-            binding.preparationTime.text = it
-        }
-        (recipeDetails.cookingMinutes.toString() + " mins").also { binding.cookingTime.text = it }
-        (recipeDetails.readyInMinutes.toString() + " mins").also {
-            binding.readyInMinutes.text = it
-        }
+
+        hideIconAndText(
+            recipeDetails.preparationMinutes,
+            binding.preparationTime,
+            binding.preparationImage
+        )
+        hideIconAndText(recipeDetails.cookingMinutes, binding.cookingTime, binding.cookingImage)
+        hideIconAndText(recipeDetails.readyInMinutes, binding.readyInMinutes, binding.readyInImage)
+
         if (recipeDetails.instructions.startsWith("Instructions")) recipeDetails.instructions.replaceFirst(
             "Instructions",
             ""
         )
         (recipeDetails.instructions + " mins").also { binding.instructionsText.text = it }
-        ("Ingredients for " + recipeDetails.servings + " servings\n").also { binding.ingredientsTitle.text = it }
-
-        val linearLayout : LinearLayout = binding.ingredientList
-        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        recipeDetails.ingredients.forEach {
-            val newIngredientView: View = inflater.inflate(R.layout.ingredient_item, null)
-            linearLayout.addView(newIngredientView, linearLayout.getChildCount() - 1)
+        ("Ingredients for " + recipeDetails.servings + " servings\n").also {
+            binding.ingredientsTitle.text = it
         }
 
-        System.out.println(recipeDetails.ingredients.size)
+        val linearLayout: LinearLayout = binding.ingredientList
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        recipeDetails.ingredients.forEach { _ ->
+            val newIngredientView: View = inflater.inflate(R.layout.ingredient_item, null)
+            linearLayout.addView(newIngredientView, linearLayout.childCount - 1)
+        }
+    }
+
+    private fun hideIconAndText(minutes: Int, text: TextView, image: ImageView) {
+        if (minutes == 0) {
+            image.visibility = View.GONE
+            text.visibility = View.GONE
+        } else {
+            ("$minutes mins").also { text.text = it }
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
