@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                             putExtra("details", it)
                         }
                         startActivity(detailsIntent)
+                        //overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                     }
                 }
             } else {
