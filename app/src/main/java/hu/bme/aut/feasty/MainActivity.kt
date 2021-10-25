@@ -110,14 +110,13 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                             putExtra("details", it)
                         }
                         startActivity(detailsIntent)
-                        //overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
                 }
             } else {
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
-        //viewModel.ingredientsResponse.removeObserver()
     }
 
     private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
