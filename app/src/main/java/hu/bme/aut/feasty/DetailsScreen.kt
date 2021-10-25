@@ -49,7 +49,7 @@ class DetailsScreen : AppCompatActivity() {
             ""
         )
         (recipeDetails.instructions + " mins").also { binding.instructionsText.text = it }
-        ("Ingredients for " + recipeDetails.servings + " servings\n").also {
+        ("Ingredients for " + recipeDetails.servings + " servings").also {
             binding.ingredientsTitle.text = it
         }
 
