@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.getRecipeList(binding.searchBar.text.toString())
 
-                viewModel.recipeListResponse.observe(this, { response ->
+                viewModel.recipeListResponse.observeOnce(this, { response ->
                     if (response.isSuccessful) {
                         response.body()?.let {
                             runOnUiThread {

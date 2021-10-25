@@ -13,13 +13,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter
-import hu.bme.aut.feasty.adapter.RecipeListAdapter
-import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 
 class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var ingredientListAdapter: IngredientListAdapter
-    private lateinit var viewModel: IngredientListAdapter.IngredientListViewHolder
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {

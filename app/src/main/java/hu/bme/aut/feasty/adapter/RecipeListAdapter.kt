@@ -36,7 +36,15 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
         holder.setupClickHandler(recipeList[position])
     }
 
+    private fun cleanList() {
+        val oldSize = recipeList.size
+        recipeList = mutableListOf()
+        //notifyItemRangeRemoved(0, oldSize)
+        notifyDataSetChanged()
+    }
+
     fun setData(newRecipeList: MutableList<Recipe>) {
+        cleanList()
         recipeList = newRecipeList
         recyclerViewUpdatesListener.onRecyclerViewChanged(this.recipeList.size)
         notifyItemRangeInserted(0, recipeList.size)
