@@ -7,7 +7,6 @@ import hu.bme.aut.feasty.model.Recipe
 import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
 
-
 class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickListener, private val recyclerViewUpdatesListener: RecyclerViewUpdatesListener) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
     private var recipeList = mutableListOf<Recipe>()

@@ -9,13 +9,17 @@ import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.ActivityDetailsBinding
 import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
-import android.view.LayoutInflater
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import hu.bme.aut.feasty.adapter.IngredientListAdapter
+import hu.bme.aut.feasty.adapter.RecipeListAdapter
+import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 
 class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
+    private lateinit var ingredientListAdapter: IngredientListAdapter
+    private lateinit var viewModel: IngredientListAdapter.IngredientListViewHolder
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +27,7 @@ class DetailsScreen : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        System.out.println(this)
+        setupRecyclerView()
 
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
@@ -31,7 +35,6 @@ class DetailsScreen : AppCompatActivity() {
         binding.title.text = recipeDetails.title
         val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
         Picasso.get().load(imageURL).into(binding.recipeImageCard)
-
 
         hideIconAndText(
             recipeDetails.preparationMinutes,
@@ -50,13 +53,7 @@ class DetailsScreen : AppCompatActivity() {
             binding.ingredientsTitle.text = it
         }
 
-        val linearLayout: LinearLayout = binding.ingredientList
-        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        recipeDetails.ingredients.forEach { _ ->
-            val newIngredientView: View = inflater.inflate(R.layout.ingredient_item, null)
-            linearLayout.addView(newIngredientView, linearLayout.childCount - 1)
-        }
+        ingredientListAdapter.setData(recipeDetails.ingredients)
     }
 
     private fun hideIconAndText(minutes: Int, text: TextView, image: ImageView) {
@@ -66,6 +63,12 @@ class DetailsScreen : AppCompatActivity() {
         } else {
             ("$minutes mins").also { text.text = it }
         }
+    }
+
+    private fun setupRecyclerView() {
+        ingredientListAdapter = IngredientListAdapter()
+        binding.ingredientList.adapter = ingredientListAdapter
+        binding.ingredientList.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

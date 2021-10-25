@@ -6,11 +6,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.RecipeListAdapter
@@ -66,10 +68,10 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     override fun onResume() {
-        super.onResume();
+        super.onResume()
 
         if (recipeListState != null) {
-            binding.recyclerView.layoutManager?.onRestoreInstanceState(recipeListState);
+            binding.recyclerView.layoutManager?.onRestoreInstanceState(recipeListState)
         }
     }
 
@@ -99,7 +101,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     override fun onRecipeClicked(recipe: Recipe) {
         viewModel.getIngredients(recipe.recipeId)
 
-        viewModel.ingredientsResponse.observe(this, { response ->
+        viewModel.ingredientsResponse.observeOnce(this, { response ->
             if (response.isSuccessful) {
                 response.body()?.let {
                     runOnUiThread {
@@ -115,19 +117,28 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
+        //viewModel.ingredientsResponse.removeObserver()
+    }
+
+    private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+        observe(lifecycleOwner, object : Observer<T> {
+            override fun onChanged(t: T?) {
+                observer.onChanged(t)
+                removeObserver(this)
+            }
+        })
     }
 
     override fun onSaveInstanceState(state: Bundle) {
         super.onSaveInstanceState(state)
-
         recipeListState = binding.recyclerView.layoutManager?.onSaveInstanceState()
         state.putParcelable(RECIPE_LIST_STATE_KEY, recipeListState)
     }
 
     override fun onRestoreInstanceState(state: Bundle) {
-        super.onRestoreInstanceState(state);
+        super.onRestoreInstanceState(state)
 
-        recipeListState = state.getParcelable(RECIPE_LIST_STATE_KEY);
+        recipeListState = state.getParcelable(RECIPE_LIST_STATE_KEY)
     }
 
     override fun onRecyclerViewChanged(itemCount: Int) {
