@@ -13,11 +13,13 @@
         android:theme="@style/Theme.Feasty">
         <activity
             android:name=".DetailsScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Feasty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +30,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode= "singleInstance"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Feasty">
 
         </activity>
