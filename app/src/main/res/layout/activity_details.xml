@@ -278,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="25dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
@@ -290,10 +290,9 @@
 
                     <TextView
                         android:id="@+id/instructionsTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="375dp"
+                        android:layout_height="33dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:text="@string/instructions_title"
                         android:textAlignment="center"
@@ -343,7 +342,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="20dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
@@ -351,7 +350,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="138dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp">
 
                     <TextView
@@ -378,166 +378,117 @@
                         android:layout_height="2dp"
                         android:layout_marginHorizontal="30dp"
                         android:background="?attr/colorPrimary"
-                        app:layout_constraintBottom_toTopOf="@id/vegetarianLayout"
                         app:layout_constraintTop_toBottomOf="@id/infoTitle"
                         tools:layout_editor_absoluteX="30dp" />
 
-                    <LinearLayout
-                        android:id="@+id/vegetarianLayout"
+                    <TextView
+                        android:id="@+id/vegetarianText"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="50dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/vegetarian"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@id/veganText"
+                        app:layout_constraintEnd_toStartOf="@+id/vegetarianImage"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="54dp">
+                        app:layout_constraintTop_toBottomOf="@+id/infoTitle">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/vegetarian"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView"
-                            app:layout_constraintStart_toStartOf="parent">
+                    </TextView>
 
-                        </TextView>
-
-                        <ImageView
-                            android:id="@+id/vegetarianImage"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/yes"
-                            android:contentDescription="@string/vegetarian"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/view"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/veganLayout"
+                    <TextView
+                        android:id="@+id/veganText"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="50dp"
-                        android:layout_marginVertical="20dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vegetarianLayout">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/vegan"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/vegetarianText"
+                        app:layout_constraintTop_toBottomOf="@+id/vegetarianText">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/vegan"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/vegetarianLayout">
+                    </TextView>
 
-                        </TextView>
+                    <ImageView
+                        android:id="@+id/vegetarianImage"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/yes"
+                        android:contentDescription="@string/vegetarian"
+                        app:layout_constraintBottom_toTopOf="@+id/veganImage"
+                        app:layout_constraintEnd_toStartOf="@+id/glutenText"
+                        app:layout_constraintStart_toEndOf="@+id/vegetarianText"
+                        app:layout_constraintTop_toBottomOf="@+id/view" />
 
-                        <ImageView
-                            android:id="@+id/veganImage"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/no"
-                            android:contentDescription="@string/vegetarian"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/view"
-                            app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:id="@+id/veganImage"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/no"
+                        android:contentDescription="@string/vegetarian"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/glutenText"
+                        app:layout_constraintStart_toEndOf="@+id/vegetarianText"
+                        app:layout_constraintTop_toBottomOf="@+id/vegetarianImage" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/glutenLayout"
+                    <TextView
+                        android:id="@+id/glutenText"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.856"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/gluten"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/dairyText"
+                        app:layout_constraintEnd_toStartOf="@+id/glutenImage"
+                        app:layout_constraintStart_toEndOf="@+id/vegetarianImage"
                         app:layout_constraintTop_toBottomOf="@+id/view">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/gluten"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/vegetarianLayout">
+                    </TextView>
 
-                        </TextView>
-
-                        <ImageView
-                            android:id="@+id/glutenImage"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/yes"
-                            android:contentDescription="@string/vegetarian"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/view" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/dairyLayout"
+                    <TextView
+                        android:id="@+id/dairyText"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="50dp"
-                        android:layout_marginVertical="20dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dairy"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/glutenText"
+                        app:layout_constraintTop_toBottomOf="@+id/glutenText">
+
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/glutenImage"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/yes"
+                        android:contentDescription="@string/vegetarian"
+                        app:layout_constraintBottom_toTopOf="@+id/dairyImage"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/glutenLayout">
+                        app:layout_constraintStart_toEndOf="@+id/glutenText"
+                        app:layout_constraintTop_toBottomOf="@+id/view" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/dairy"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                        </TextView>
-
-                        <ImageView
-                            android:id="@+id/dairyImage"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/no"
-                            android:contentDescription="@string/vegetarian"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/view"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/dairyImage"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/no"
+                        android:contentDescription="@string/vegetarian"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/glutenText"
+                        app:layout_constraintTop_toBottomOf="@+id/glutenImage"
+                        app:layout_constraintVertical_bias="0.768" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
