@@ -16,4 +16,9 @@
     <string name="ingredient_amount">ingredient amount</string>
     <string name="info_btn">information button</string>
     <string name="is_the_recipe_vegan">is the recipe vegan</string>
+    <string name="info_title">Information</string>
+    <string name="vegetarian">vegetarian</string>
+    <string name="vegan">vegan</string>
+    <string name="gluten">gluten free</string>
+    <string name="dairy">dairy free</string>
 </resources>

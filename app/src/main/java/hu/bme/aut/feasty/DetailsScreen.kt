@@ -3,6 +3,7 @@ package hu.bme.aut.feasty
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -57,7 +58,18 @@ class DetailsScreen : AppCompatActivity() {
             binding.ingredientsTitle.text = it
         }
 
+        yesOrNoImage(recipeDetails.vegetarian, binding.vegetarianImage)
+        yesOrNoImage(recipeDetails.vegan, binding.veganImage)
+        yesOrNoImage(recipeDetails.glutenFree, binding.glutenImage)
+        yesOrNoImage(recipeDetails.dairyFree, binding.dairyImage)
+
         ingredientListAdapter.setData(recipeDetails.ingredients)
+    }
+
+    private fun yesOrNoImage(info: Boolean, image: ImageView) {
+        if (info)
+            image.setImageResource(R.drawable.yes)
+        else image.setImageResource(R.drawable.no)
     }
 
     private fun hideIconAndText(minutes: Int, text: TextView, image: ImageView) {
@@ -70,13 +82,7 @@ class DetailsScreen : AppCompatActivity() {
     }
 
     private fun showDialog(recipeDetails: RecipeDetails) {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.activity_popup)
-        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_border)
-        dialog.window?.context
-        //dialog.context.
-
-        dialog.show()
+        System.out.println("clicked")
     }
 
     private fun setupRecyclerView() {
