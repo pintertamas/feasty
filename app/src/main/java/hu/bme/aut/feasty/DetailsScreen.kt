@@ -1,9 +1,6 @@
 package hu.bme.aut.feasty
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.Intent
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -14,7 +11,6 @@ import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter
 
@@ -34,7 +30,7 @@ class DetailsScreen : AppCompatActivity() {
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
 
         binding.infoButton.setOnClickListener {
-            showDialog(recipeDetails)
+            goToInfo()
         }
 
         binding.title.text = recipeDetails.title
@@ -81,8 +77,8 @@ class DetailsScreen : AppCompatActivity() {
         }
     }
 
-    private fun showDialog(recipeDetails: RecipeDetails) {
-        System.out.println("clicked")
+    private fun goToInfo() {
+        binding.scrollView.scrollTo(0, binding.scrollView.bottom + 150)
     }
 
     private fun setupRecyclerView() {
