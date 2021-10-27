@@ -1,6 +1,8 @@
 package hu.bme.aut.feasty
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,6 +13,7 @@ import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter
 
@@ -28,6 +31,10 @@ class DetailsScreen : AppCompatActivity() {
 
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
+
+        binding.infoButton.setOnClickListener {
+            showDialog(recipeDetails)
+        }
 
         binding.title.text = recipeDetails.title
         val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
@@ -60,6 +67,16 @@ class DetailsScreen : AppCompatActivity() {
         } else {
             ("$minutes mins").also { text.text = it }
         }
+    }
+
+    private fun showDialog(recipeDetails: RecipeDetails) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.activity_popup)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_border)
+        dialog.window?.context
+        //dialog.context.
+
+        dialog.show()
     }
 
     private fun setupRecyclerView() {

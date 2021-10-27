@@ -39,8 +39,7 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
     private fun cleanList() {
         val oldSize = recipeList.size
         recipeList = mutableListOf()
-        //notifyItemRangeRemoved(0, oldSize)
-        notifyDataSetChanged()
+        notifyItemRangeRemoved(0, oldSize)
     }
 
     fun setData(newRecipeList: MutableList<Recipe>) {

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Feasty">
         <activity
+            android:name=".PopupActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailsScreen"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -32,9 +35,7 @@
             android:label="@string/app_name"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Feasty">
-
-        </activity>
+            android:theme="@style/Theme.Feasty"></activity>
     </application>
 
 </manifest>

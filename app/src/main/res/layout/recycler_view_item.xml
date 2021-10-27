@@ -42,7 +42,7 @@
                     android:id="@+id/recipe_image_card"
                     android:layout_width="120dp"
                     android:layout_height="160dp"
-                    android:background="@drawable/image_view_with_rounded_border"
+                    android:background="@drawable/rounded_border"
                     android:contentDescription="@string/image_of_the_recipe"
                     android:scaleType="centerCrop"
                     android:src="@drawable/food_image_sample">

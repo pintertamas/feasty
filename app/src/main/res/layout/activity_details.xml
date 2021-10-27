@@ -21,9 +21,8 @@
                 android:id="@+id/image_card"
                 android:layout_width="match_parent"
                 android:layout_height="230sp"
-                android:layout_marginStart="100dp"
+                android:layout_marginHorizontal="100dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="100dp"
                 android:layout_marginBottom="50dp"
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/white"
@@ -38,7 +37,7 @@
                     android:id="@+id/recipe_image_card"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/image_view_with_rounded_border"
+                    android:background="@drawable/rounded_border"
                     android:contentDescription="@string/image_of_the_recipe"
                     android:scaleType="centerCrop"
                     android:src="@drawable/food_image_sample">
@@ -184,6 +183,21 @@
                 </LinearLayout>
 
             </GridLayout>
+
+            <ImageButton
+                android:id="@+id/infoButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/rounded_border"
+                android:contentDescription="@string/info_btn"
+                android:cropToPadding="false"
+                android:elevation="100dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

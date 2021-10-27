@@ -14,4 +14,6 @@
     <string name="ingredients_title">Ingredients for X servings</string>
     <string name="ingredient_name">ingredient name</string>
     <string name="ingredient_amount">ingredient amount</string>
+    <string name="info_btn">information button</string>
+    <string name="is_the_recipe_vegan">is the recipe vegan</string>
 </resources>
