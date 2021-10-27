@@ -197,7 +197,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/info_button" />
+                app:srcCompat="@drawable/info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
