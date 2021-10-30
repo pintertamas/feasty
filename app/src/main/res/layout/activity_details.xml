@@ -207,13 +207,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rounded_border"
-                android:contentDescription="@string/info_btn"
+                android:contentDescription="@string/share"
                 android:cropToPadding="false"
                 android:elevation="100dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infoButton"
-                app:srcCompat="@drawable/info" />
+                app:srcCompat="@drawable/share" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
