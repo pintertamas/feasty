@@ -1,5 +1,6 @@
 package hu.bme.aut.feasty
 
+import android.R.attr
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +12,15 @@ import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter
+import android.R.attr.label
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+
 
 class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
@@ -33,6 +41,10 @@ class DetailsScreen : AppCompatActivity() {
             goToInfo()
         }
 
+        binding.shareButton.setOnClickListener {
+            share(recipeDetails)
+        }
+
         binding.title.text = recipeDetails.title
         val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
         Picasso.get().load(imageURL).into(binding.recipeImageCard)
@@ -49,7 +61,8 @@ class DetailsScreen : AppCompatActivity() {
             "Instructions",
             ""
         )
-        (recipeDetails.instructions + " mins").also { binding.instructionsText.text = it }
+
+        (recipeDetails.instructions).also { binding.instructionsText.text = it }
         ("Ingredients for " + recipeDetails.servings + " servings").also {
             binding.ingredientsTitle.text = it
         }
@@ -78,7 +91,15 @@ class DetailsScreen : AppCompatActivity() {
     }
 
     private fun goToInfo() {
-        binding.scrollView.scrollTo(0, binding.scrollView.bottom + 150)
+        binding.scrollView.scrollTo(0, binding.scrollView.bottom + 250)
+    }
+
+    private fun share(recipeDetails: RecipeDetails) {
+        val clipboard: ClipboardManager =
+            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("url", recipeDetails.url)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(this, "Link copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupRecyclerView() {

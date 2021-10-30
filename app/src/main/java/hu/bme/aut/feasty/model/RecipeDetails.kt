@@ -7,6 +7,8 @@ data class RecipeDetails(
     var id: Long,
     var image: String,
     var title: String,
+    @SerializedName("sourceUrl")
+    var url: String,
     @SerializedName("extendedIngredients")
     var ingredients: MutableList<Ingredient>,
     var instructions: String,
