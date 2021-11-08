@@ -7,21 +7,19 @@ import hu.bme.aut.feasty.model.Recipe
 import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
 
-class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickListener, private val recyclerViewUpdatesListener: RecyclerViewUpdatesListener) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
+class RecipeListAdapter(
+    private val recipeItemClickedListener: RecipeItemClickListener,
+    private val recyclerViewUpdatesListener: RecyclerViewUpdatesListener
+) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
     private var recipeList = mutableListOf<Recipe>()
-    private val itemClickAction: (Recipe) -> Unit = {
-        recipeItemClickedListener.onRecipeClicked(it)
-    }
 
-    class RecipeListViewHolder(val binding: RecyclerViewItemBinding, val clickAction: (Recipe) -> Unit) : RecyclerView.ViewHolder(binding.root) {
-        fun setupClickHandler(recipe: Recipe) {
-            itemView.setOnClickListener { clickAction(recipe) }
-        }
-    }
+
+    class RecipeListViewHolder(val binding: RecyclerViewItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecipeListViewHolder(
-        RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), itemClickAction
+        RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun getItemCount(): Int {
@@ -29,11 +27,17 @@ class RecipeListAdapter(private val recipeItemClickedListener: RecipeItemClickLi
     }
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
-        holder.binding.title.text = recipeList[position].title
-        ("ready in " + recipeList[position].readyInMinutes.toString() + " minutes").also { holder.binding.readyInMinutes.text = it }
-        val imageURL = "https://spoonacular.com/recipeImages/" + recipeList[position].imageUri
+        holder.binding.title.text = recipeList[holder.adapterPosition].title
+        ("ready in " + recipeList[holder.adapterPosition].readyInMinutes.toString() + " minutes").also {
+            holder.binding.readyInMinutes.text = it
+        }
+        val imageURL =
+            "https://spoonacular.com/recipeImages/" + recipeList[holder.adapterPosition].imageUri
         Picasso.get().load(imageURL).into(holder.binding.recipeImageCard)
-        holder.setupClickHandler(recipeList[position])
+
+        holder.itemView.setOnClickListener {
+            recipeItemClickedListener.onRecipeClicked(recipeList[holder.adapterPosition])
+        }
     }
 
     private fun cleanList() {
