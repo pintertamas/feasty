@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                     runOnUiThread {
                         val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
                             putExtra("recipe", recipe)
-                            System.out.println(recipe.title)
                             putExtra("details", it)
                         }
                         startActivity(detailsIntent)

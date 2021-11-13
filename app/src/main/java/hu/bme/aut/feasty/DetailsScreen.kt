@@ -33,9 +33,7 @@ class DetailsScreen : AppCompatActivity() {
         setupRecyclerView()
 
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
-        System.out.println(recipe.title)
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
-        System.out.println(recipeDetails.title)
 
         binding.infoButton.setOnClickListener {
             goToInfo()
