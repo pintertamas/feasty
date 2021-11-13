@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.getRecipeList(binding.searchBar.text.toString())
 
-                viewModel.recipeListResponse.observeOnce(this, { response ->
+                viewModel.recipeListResponse.observe(this, { response ->
                     if (response.isSuccessful) {
                         response.body()?.let {
                             runOnUiThread {
@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                     runOnUiThread {
                         val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
                             putExtra("recipe", recipe)
+                            System.out.println(recipe.title)
                             putExtra("details", it)
                         }
                         startActivity(detailsIntent)

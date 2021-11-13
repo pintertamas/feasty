@@ -1,6 +1,5 @@
 package hu.bme.aut.feasty
 
-import android.R.attr
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter
-import android.R.attr.label
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -35,7 +33,9 @@ class DetailsScreen : AppCompatActivity() {
         setupRecyclerView()
 
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
+        System.out.println(recipe.title)
         val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
+        System.out.println(recipeDetails.title)
 
         binding.infoButton.setOnClickListener {
             goToInfo()
