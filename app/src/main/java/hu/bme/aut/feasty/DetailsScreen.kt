@@ -55,10 +55,13 @@ class DetailsScreen : AppCompatActivity() {
         hideIconAndText(recipeDetails.cookingMinutes, binding.cookingTime, binding.cookingImage)
         hideIconAndText(recipeDetails.readyInMinutes, binding.readyInMinutes, binding.readyInImage)
 
-        if (recipeDetails.instructions.startsWith("Instructions")) recipeDetails.instructions.replaceFirst(
-            "Instructions",
-            ""
-        )
+        if (recipeDetails.instructions.startsWith("Instructions"))
+            recipeDetails.instructions = recipeDetails.instructions.replaceFirst(
+                "Instructions",
+                ""
+            ).trim()
+
+        recipeDetails.instructions = removeWhitespaces(recipeDetails.instructions)
 
         (recipeDetails.instructions).also { binding.instructionsText.text = it }
         ("Ingredients for " + recipeDetails.servings + " servings").also {
@@ -71,6 +74,18 @@ class DetailsScreen : AppCompatActivity() {
         yesOrNoImage(recipeDetails.dairyFree, binding.dairyImage)
 
         ingredientListAdapter.setData(recipeDetails.ingredients)
+    }
+
+    private fun removeWhitespaces(s: String): String {
+        var res = s.replace("\t", " ")
+        res = res.replace(".", ". ")
+        while (res.contains("  ")) {
+            res = res.replace("  ", " ")
+        }
+        while (res.contains("\n\n")) {
+            res = res.replace("\n\n", "\n")
+        }
+        return res
     }
 
     private fun yesOrNoImage(info: Boolean, image: ImageView) {

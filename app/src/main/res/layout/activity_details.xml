@@ -306,10 +306,11 @@
 
                     <TextView
                         android:id="@+id/instructionsTitle"
-                        android:layout_width="375dp"
-                        android:layout_height="33dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal"
+                        android:gravity="center"
                         android:text="@string/instructions_title"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnPrimary"
