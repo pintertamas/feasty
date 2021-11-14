@@ -19,7 +19,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 
-
 class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var ingredientListAdapter: IngredientListAdapter
@@ -123,6 +122,7 @@ class DetailsScreen : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            startActivity(parentActivityIntent)
             finish()
         }
         return super.onKeyDown(keyCode, event)

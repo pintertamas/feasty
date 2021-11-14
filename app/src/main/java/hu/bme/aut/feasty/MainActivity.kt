@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -21,6 +22,8 @@ import hu.bme.aut.feasty.model.Recipe
 import hu.bme.aut.feasty.repository.Repository
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
+import android.os.Looper
+
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener,
     RecipeListAdapter.RecyclerViewUpdatesListener {
@@ -65,6 +68,19 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
         binding.searchBar.setOnClickListener {
             binding.searchBar.isCursorVisible = true
         }
+    }
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
     override fun onResume() {
