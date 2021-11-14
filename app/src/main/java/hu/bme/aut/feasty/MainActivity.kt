@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -24,14 +23,12 @@ import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
 import android.os.Looper
 
-
 class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener,
     RecipeListAdapter.RecyclerViewUpdatesListener {
 
     private lateinit var viewModel: RecipeListViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var recipeListAdapter: RecipeListAdapter
-    private var recipeListState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,14 +80,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
         Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        if (recipeListState != null) {
-            binding.recyclerView.layoutManager?.onRestoreInstanceState(recipeListState)
-        }
-    }
-
     private fun handleSubmit() {
         hideKeyboard()
         binding.searchBar.setText("")
@@ -121,6 +110,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
             if (response.isSuccessful) {
                 response.body()?.let {
                     runOnUiThread {
+                        binding.recyclerView.layoutManager?.onSaveInstanceState()
                         val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
                             putExtra("recipe", recipe)
                             putExtra("details", it)
@@ -144,18 +134,6 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
         })
     }
 
-    override fun onSaveInstanceState(state: Bundle) {
-        super.onSaveInstanceState(state)
-        recipeListState = binding.recyclerView.layoutManager?.onSaveInstanceState()
-        state.putParcelable(RECIPE_LIST_STATE_KEY, recipeListState)
-    }
-
-    override fun onRestoreInstanceState(state: Bundle) {
-        super.onRestoreInstanceState(state)
-
-        recipeListState = state.getParcelable(RECIPE_LIST_STATE_KEY)
-    }
-
     override fun onRecyclerViewChanged(itemCount: Int) {
         if (itemCount >= 0) {
             binding.recyclerView.visibility = View.VISIBLE
@@ -164,9 +142,5 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
             binding.recyclerView.visibility = View.GONE
             binding.placeholderImage.visibility = View.VISIBLE
         }
-    }
-
-    companion object {
-        const val RECIPE_LIST_STATE_KEY: String = "recipeListState"
     }
 }

@@ -1,6 +1,5 @@
 package hu.bme.aut.feasty
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -23,7 +22,6 @@ class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var ingredientListAdapter: IngredientListAdapter
 
-    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
