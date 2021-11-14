@@ -22,6 +22,10 @@ import hu.bme.aut.feasty.repository.Repository
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModel
 import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
 import android.os.Looper
+import androidx.recyclerview.widget.RecyclerView
+
+
+
 
 class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener,
     RecipeListAdapter.RecyclerViewUpdatesListener {
