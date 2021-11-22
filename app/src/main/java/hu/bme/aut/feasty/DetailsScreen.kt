@@ -42,10 +42,6 @@ class DetailsScreen : AppCompatActivity() {
         binding.title.text = recipe.title
         Picasso.get().load(recipe.imageUri).into(binding.recipeImageCard)
 
-        hideIconAndText(0, binding.preparationTime, binding.preparationImage)
-        hideIconAndText(0, binding.cookingTime, binding.cookingImage)
-        hideIconAndText(0, binding.readyInMinutes, binding.readyInImage)
-
         ("Ingredients").also { binding.ingredientsTitle.text = it }
 
         yesOrNoImage(isVegetarian(recipe.healthLabels), binding.vegetarianImage)
@@ -100,15 +96,6 @@ class DetailsScreen : AppCompatActivity() {
         if (info)
             image.setImageResource(R.drawable.yes)
         else image.setImageResource(R.drawable.no)
-    }
-
-    private fun hideIconAndText(minutes: Int, text: TextView, image: ImageView) {
-        if (minutes == 0) {
-            image.visibility = View.GONE
-            text.visibility = View.GONE
-        } else {
-            ("$minutes mins").also { text.text = it }
-        }
     }
 
     private fun goToInfo() {
