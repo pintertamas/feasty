@@ -4,18 +4,9 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Ingredient(
-    val id: Long,
-    @SerializedName("nameClean")
+    @SerializedName("food")
     val name: String,
     val image: String,
-    val measures: Measures
-) : Serializable
-
-data class Measures(
-    val metric: MetricMeasures
-) : Serializable
-
-data class MetricMeasures(
-    val amount: Double,
-    val unitShort: String
+    val quantity: Double,
+    val measure: String,
 ) : Serializable

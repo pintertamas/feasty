@@ -30,49 +30,58 @@ class DetailsScreen : AppCompatActivity() {
         setupRecyclerView()
 
         val recipe: Recipe = intent.getSerializableExtra("recipe") as Recipe
-        val recipeDetails: RecipeDetails = (intent.getSerializableExtra("details") as RecipeDetails)
 
         binding.infoButton.setOnClickListener {
             goToInfo()
         }
 
         binding.shareButton.setOnClickListener {
-            share(recipeDetails)
+            share(recipe.url)
         }
 
-        binding.title.text = recipeDetails.title
-        val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
-        Picasso.get().load(imageURL).into(binding.recipeImageCard)
+        binding.title.text = recipe.title
+        Picasso.get().load(recipe.imageUri).into(binding.recipeImageCard)
 
-        hideIconAndText(
-            recipeDetails.preparationMinutes,
-            binding.preparationTime,
-            binding.preparationImage
+        hideIconAndText(0, binding.preparationTime, binding.preparationImage)
+        hideIconAndText(0, binding.cookingTime, binding.cookingImage)
+        hideIconAndText(0, binding.readyInMinutes, binding.readyInImage)
+
+        ("Ingredients").also { binding.ingredientsTitle.text = it }
+
+        yesOrNoImage(isVegetarian(recipe.healthLabels), binding.vegetarianImage)
+        yesOrNoImage(isVegan(recipe.healthLabels), binding.veganImage)
+        yesOrNoImage(isGlutenFree(recipe.healthLabels), binding.glutenImage)
+        yesOrNoImage(isDairyFree(recipe.healthLabels), binding.dairyImage)
+
+        ingredientListAdapter.setData(recipe.ingredients)
+    }
+
+    private fun isVegetarian(healthLabels: List<String>): Boolean {
+        if (healthLabels.contains("Pork-Free") && healthLabels.contains("Red-Meat-Free"))
+            return true
+        return false
+    }
+
+    private fun isVegan(healthLabels: List<String>): Boolean {
+        if (healthLabels.contains("Pork-Free") && healthLabels.contains("Red-Meat-Free") &&
+            healthLabels.contains("Egg-Free") && healthLabels.contains("Fish-Free") &&
+            healthLabels.contains("Shellfish-Free") && healthLabels.contains("Crustacean-Free") &&
+            healthLabels.contains("Mollusk-Free")
         )
-        hideIconAndText(recipeDetails.cookingMinutes, binding.cookingTime, binding.cookingImage)
-        hideIconAndText(recipeDetails.readyInMinutes, binding.readyInMinutes, binding.readyInImage)
+            return true
+        return false
+    }
 
-        if (!recipeDetails.instructions.equals(null)) {
-            if (recipeDetails.instructions!!.startsWith("Instructions"))
-                recipeDetails.instructions = recipeDetails.instructions!!.replaceFirst(
-                    "Instructions",
-                    ""
-                ).trim()
+    private fun isGlutenFree(healthLabels: List<String>): Boolean {
+        if (healthLabels.contains("Gluten-Free"))
+            return true
+        return false
+    }
 
-            recipeDetails.instructions = removeWhitespaces(recipeDetails.instructions!!)
-        }
-
-        (recipeDetails.instructions).also { binding.instructionsText.text = it }
-        ("Ingredients for " + recipeDetails.servings + " servings").also {
-            binding.ingredientsTitle.text = it
-        }
-
-        yesOrNoImage(recipeDetails.vegetarian, binding.vegetarianImage)
-        yesOrNoImage(recipeDetails.vegan, binding.veganImage)
-        yesOrNoImage(recipeDetails.glutenFree, binding.glutenImage)
-        yesOrNoImage(recipeDetails.dairyFree, binding.dairyImage)
-
-        ingredientListAdapter.setData(recipeDetails.ingredients)
+    private fun isDairyFree(healthLabels: List<String>): Boolean {
+        if (healthLabels.contains("Dairy-Free"))
+            return true
+        return false
     }
 
     private fun removeWhitespaces(s: String): String {
@@ -106,10 +115,10 @@ class DetailsScreen : AppCompatActivity() {
         binding.scrollView.scrollTo(0, binding.scrollView.bottom + 250)
     }
 
-    private fun share(recipeDetails: RecipeDetails) {
+    private fun share(url: String) {
         val clipboard: ClipboardManager =
             getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("url", recipeDetails.url)
+        val clip = ClipData.newPlainText("url", url)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(this, "Link copied to clipboard", Toast.LENGTH_SHORT).show()
     }

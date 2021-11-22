@@ -17,17 +17,8 @@ class RecipeListViewModel(private val repository: Repository) : ViewModel() {
         recipeListResponse = MutableLiveData()
         viewModelScope.launch {
             val response: Response<RecipeList> = repository.getRecipeList(query)
+            System.out.println(response)
             recipeListResponse.value = response
-        }
-    }
-
-    var ingredientsResponse: MutableLiveData<Response<RecipeDetails>> = MutableLiveData()
-
-    fun getIngredients(recipeID: Long) {
-        ingredientsResponse = MutableLiveData()
-        viewModelScope.launch {
-            val response: Response<RecipeDetails> = repository.getRecipeDetailsByRecipeID(recipeID)
-            ingredientsResponse.value = response
         }
     }
 }

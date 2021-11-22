@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                     if (response.isSuccessful) {
                         response.body()?.let {
                             runOnUiThread {
-                                recipeListAdapter.setData(it.recipes)
+                                recipeListAdapter.setData(it.records)
                             }
                         }
                     } else {
@@ -108,25 +108,15 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
     }
 
     override fun onRecipeClicked(recipe: Recipe) {
-        viewModel.getIngredients(recipe.recipeId)
 
-        viewModel.ingredientsResponse.observeOnce(this, { response ->
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    runOnUiThread {
-                        binding.recyclerView.layoutManager?.onSaveInstanceState()
-                        val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
-                            putExtra("recipe", recipe)
-                            putExtra("details", it)
-                        }
-                        startActivity(detailsIntent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                    }
-                }
-            } else {
-                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            binding.recyclerView.layoutManager?.onSaveInstanceState()
+            val detailsIntent = Intent(this, DetailsScreen::class.java).apply {
+                putExtra("recipe", recipe)
             }
-        })
+            startActivity(detailsIntent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
     }
 
     private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {

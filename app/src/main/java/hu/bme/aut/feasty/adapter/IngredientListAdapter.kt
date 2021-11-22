@@ -23,8 +23,8 @@ class IngredientListAdapter :
 
     override fun onBindViewHolder(holder: IngredientListViewHolder, position: Int) {
         holder.binding.ingredientName.text = ingredientList[holder.adapterPosition].name
-        (ingredientList[holder.adapterPosition].measures.metric.amount.toString() + " " +
-                ingredientList[holder.adapterPosition].measures.metric.unitShort).also {
+        (ingredientList[holder.adapterPosition].measure + " " +
+                ingredientList[holder.adapterPosition].quantity).also {
             holder.binding.ingredientAmount.text = it
         }
     }

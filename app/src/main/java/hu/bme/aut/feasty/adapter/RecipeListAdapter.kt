@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.feasty.model.Recipe
 import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
+import hu.bme.aut.feasty.model.RecipeRecord
 
 class RecipeListAdapter(
     private val recipeItemClickedListener: RecipeItemClickListener,
     private val recyclerViewUpdatesListener: RecyclerViewUpdatesListener
 ) : RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
-    private var recipeList = mutableListOf<Recipe>()
+    private var recipeList = mutableListOf<RecipeRecord>()
 
 
     class RecipeListViewHolder(val binding: RecyclerViewItemBinding) :
@@ -27,16 +28,16 @@ class RecipeListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
-        holder.binding.title.text = recipeList[holder.adapterPosition].title
-        ("ready in " + recipeList[holder.adapterPosition].readyInMinutes.toString() + " minutes").also {
+        holder.binding.title.text = recipeList[holder.adapterPosition].recipe.title
+        ("ready in " + recipeList[holder.adapterPosition].recipe.readyInMinutes.toString() + " minutes").also {
             holder.binding.readyInMinutes.text = it
         }
         val imageURL =
-            "https://spoonacular.com/recipeImages/" + recipeList[holder.adapterPosition].imageUri
+            recipeList[holder.adapterPosition].recipe.imageUri
         Picasso.get().load(imageURL).into(holder.binding.recipeImageCard)
 
         holder.itemView.setOnClickListener {
-            recipeItemClickedListener.onRecipeClicked(recipeList[holder.adapterPosition])
+            recipeItemClickedListener.onRecipeClicked(recipeList[holder.adapterPosition].recipe)
         }
     }
 
@@ -46,7 +47,7 @@ class RecipeListAdapter(
         notifyItemRangeRemoved(0, oldSize)
     }
 
-    fun setData(newRecipeList: MutableList<Recipe>) {
+    fun setData(newRecipeList: MutableList<RecipeRecord>) {
         cleanList()
         recipeList = newRecipeList
         recyclerViewUpdatesListener.onRecyclerViewChanged(this.recipeList.size)
