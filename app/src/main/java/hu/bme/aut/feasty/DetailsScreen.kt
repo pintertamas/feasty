@@ -3,13 +3,10 @@ package hu.bme.aut.feasty
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
 import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.ActivityDetailsBinding
-import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.Recipe
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.feasty.adapter.IngredientListAdapter

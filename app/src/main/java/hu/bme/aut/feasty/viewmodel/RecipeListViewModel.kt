@@ -3,7 +3,6 @@ package hu.bme.aut.feasty.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hu.bme.aut.feasty.model.RecipeDetails
 import hu.bme.aut.feasty.model.RecipeList
 import hu.bme.aut.feasty.repository.Repository
 import kotlinx.coroutines.launch
