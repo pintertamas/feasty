@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSecondaryVariant"
-    android:paddingBottom="10dp"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:paddingBottom="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/container_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:paddingBottom="5dp"
         android:background="@color/black"
+        android:clipToPadding="false"
         android:elevation="10sp"
+        android:paddingBottom="5dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clipToPadding="false">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,24 +59,59 @@
                 android:layout_marginStart="20sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
                 android:text="@string/recipe_title"
                 android:textAlignment="textStart"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/readyInMinutes"
+                app:layout_constraintBottom_toTopOf="@+id/calories"
                 app:layout_constraintEnd_toStartOf="@+id/image_card"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/readyInMinutes"
+                android:id="@+id/protein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:layout_marginStart="20sp"
-                android:layout_marginBottom="10sp"
-                android:text="@string/ready_in"
+                android:text="@string/protein"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/fat"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/fat"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/carbs"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/calories"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/protein"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/carbs"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

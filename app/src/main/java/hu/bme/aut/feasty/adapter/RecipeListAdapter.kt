@@ -1,11 +1,14 @@
 package hu.bme.aut.feasty.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.feasty.model.Recipe
 import com.squareup.picasso.Picasso
 import hu.bme.aut.feasty.databinding.RecyclerViewItemBinding
+import java.util.*
 
 class RecipeListAdapter(
     private val recipeItemClickedListener: RecipeItemClickListener,
@@ -28,15 +31,28 @@ class RecipeListAdapter(
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.binding.title.text = recipeList[holder.adapterPosition].title
-        ("ready in " + recipeList[holder.adapterPosition].readyInMinutes.toString() + " minutes").also {
-            holder.binding.readyInMinutes.text = it
-        }
-        val imageURL =
-            "https://spoonacular.com/recipeImages/" + recipeList[holder.adapterPosition].imageUri
+
+        drawNutrition(holder, holder.binding.carbs, 0)
+        drawNutrition(holder, holder.binding.protein, 1)
+        drawNutrition(holder, holder.binding.fat, 2)
+        drawNutrition(holder, holder.binding.calories, 3)
+
+        val imageURL = recipeList[holder.adapterPosition].imageUri
         Picasso.get().load(imageURL).into(holder.binding.recipeImageCard)
 
         holder.itemView.setOnClickListener {
             recipeItemClickedListener.onRecipeClicked(recipeList[holder.adapterPosition])
+        }
+    }
+
+    private fun drawNutrition(holder: RecipeListViewHolder, textView: TextView, index: Int) {
+        (recipeList[holder.adapterPosition].nutrition.nutrients[index].title
+            .lowercase() + ": "
+                + recipeList[holder.adapterPosition].nutrition.nutrients[index].amount.toString()
+            .substringBefore(".")
+                + " "
+                + recipeList[holder.adapterPosition].nutrition.nutrients[index].unit).also {
+            textView.text = it
         }
     }
 

@@ -17,6 +17,8 @@ import hu.bme.aut.feasty.adapter.IngredientListAdapter
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
+import android.text.Html
 
 class DetailsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
@@ -41,7 +43,7 @@ class DetailsScreen : AppCompatActivity() {
         }
 
         binding.title.text = recipeDetails.title
-        val imageURL = "https://spoonacular.com/recipeImages/" + recipe.imageUri
+        val imageURL = recipe.imageUri
         Picasso.get().load(imageURL).into(binding.recipeImageCard)
 
         hideIconAndText(
@@ -64,6 +66,10 @@ class DetailsScreen : AppCompatActivity() {
         ("Ingredients for " + recipeDetails.servings + " servings").also {
             binding.ingredientsTitle.text = it
         }
+
+        binding.instructionsText.text =
+            Html.fromHtml(recipeDetails.instructions, Html.FROM_HTML_MODE_COMPACT)
+
 
         yesOrNoImage(recipeDetails.vegetarian, binding.vegetarianImage)
         yesOrNoImage(recipeDetails.vegan, binding.veganImage)

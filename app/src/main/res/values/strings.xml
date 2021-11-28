@@ -22,4 +22,8 @@
     <string name="gluten">gluten free</string>
     <string name="dairy">dairy free</string>
     <string name="share">share recipe</string>
+    <string name="calories">calories: 100</string>
+    <string name="carbs">carbs: 10g</string>
+    <string name="fat">fat: 20g</string>
+    <string name="protein">protein: 15g</string>
 </resources>

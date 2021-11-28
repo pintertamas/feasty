@@ -24,9 +24,6 @@ import hu.bme.aut.feasty.viewmodel.RecipeListViewModelFactory
 import android.os.Looper
 import androidx.recyclerview.widget.RecyclerView
 
-
-
-
 class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListener,
     RecipeListAdapter.RecyclerViewUpdatesListener {
 
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                             }
                         }
                     } else {
-                        Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Error occurred (" + response.code().toString() + ")", Toast.LENGTH_SHORT).show()
                     }
                 })
 
@@ -124,7 +121,7 @@ class MainActivity : AppCompatActivity(), RecipeListAdapter.RecipeItemClickListe
                     }
                 }
             } else {
-                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error occurred! (" + response.code() + ")", Toast.LENGTH_SHORT).show()
             }
         })
     }
