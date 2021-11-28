@@ -54,13 +54,15 @@ class DetailsScreen : AppCompatActivity() {
         hideIconAndText(recipeDetails.cookingMinutes, binding.cookingTime, binding.cookingImage)
         hideIconAndText(recipeDetails.readyInMinutes, binding.readyInMinutes, binding.readyInImage)
 
-        if (recipeDetails.instructions.startsWith("Instructions"))
-            recipeDetails.instructions = recipeDetails.instructions.replaceFirst(
-                "Instructions",
-                ""
-            ).trim()
+        if (!recipeDetails.instructions.equals(null)) {
+            if (recipeDetails.instructions!!.startsWith("Instructions"))
+                recipeDetails.instructions = recipeDetails.instructions!!.replaceFirst(
+                    "Instructions",
+                    ""
+                ).trim()
 
-        recipeDetails.instructions = removeWhitespaces(recipeDetails.instructions)
+            recipeDetails.instructions = removeWhitespaces(recipeDetails.instructions!!)
+        }
 
         (recipeDetails.instructions).also { binding.instructionsText.text = it }
         ("Ingredients for " + recipeDetails.servings + " servings").also {

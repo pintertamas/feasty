@@ -11,7 +11,7 @@ data class RecipeDetails(
     var url: String,
     @SerializedName("extendedIngredients")
     var ingredients: MutableList<Ingredient>,
-    var instructions: String,
+    var instructions: String?,
     var preparationMinutes: Int,
     var cookingMinutes: Int,
     var readyInMinutes: Int,
