@@ -109,7 +109,7 @@ class DetailsScreen : AppCompatActivity() {
     }
 
     private fun goToInfo() {
-        binding.scrollView.scrollTo(0, binding.scrollView.bottom + 250)
+        binding.scrollView.scrollTo(0, binding.scrollView.bottom + 10000)
     }
 
     private fun share(recipeDetails: RecipeDetails) {
