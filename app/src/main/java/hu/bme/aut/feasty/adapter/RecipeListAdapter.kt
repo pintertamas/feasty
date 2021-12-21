@@ -17,7 +17,6 @@ class RecipeListAdapter(
 
     private var recipeList = mutableListOf<Recipe>()
 
-
     class RecipeListViewHolder(val binding: RecyclerViewItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
